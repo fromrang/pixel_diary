@@ -14,6 +14,6 @@ public class Diary {
 	private int dseq;
 	private Date day_date;
 	private Date reg_date;
-	private int useq
+	private int useq;
 	
 }
