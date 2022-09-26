@@ -9,6 +9,7 @@ import './index.css';
 
 import App from './App';
 import Login from './pixel/login';
+import Join from './pixel/RegisterPage'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -17,7 +18,8 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/login" element={<Login />} /> 
+      <Route path="login" element={<Login />} /> 
+      <Route path="join" element={<Join />} />
     </Routes>
   </BrowserRouter>
 );
