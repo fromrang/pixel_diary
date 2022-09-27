@@ -35,6 +35,19 @@ function RegisterPage() {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        
+        if(id == '') {
+            return alert('아이디를 입력해주세요');
+        }
+        if(nickname == '') {
+            return alert('닉네임을 입력해주세요');
+        }
+        if(birthDay == '') {
+            return alert('생일을 입력해주세요');
+        }
+        if(password == '') {
+            return alert('비밀번호를 입력해주세요');
+        }
         if(password !== confirmPassword) {
             return alert('비밀번호와 비밀번호확인은 같아야 합니다.');
         }
@@ -56,8 +69,12 @@ function RegisterPage() {
         };
         
         axios(config).then(function (response) {
-            console.log(JSON.stringify(response.data));
-            navigate('/login');
+            //console.log(JSON.stringify(response.data['statusCode']));
+            if (JSON.stringify(response.data['statusCode']) == 201){
+                return alert('이미 존재하는 아이디입니다.');
+            }else if(JSON.stringify(response.data['statusCode']) == 200){
+                navigate('/login');
+            }
         })
         .catch(function (error) {
             console.log(error);
