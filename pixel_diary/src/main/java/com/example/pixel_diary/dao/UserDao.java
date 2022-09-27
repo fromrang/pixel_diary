@@ -13,6 +13,7 @@ public interface UserDao {
 
     public void insertUser(User user) throws Exception;
     public User getUser(String id) throws Exception;
+    public User getUserIdPw(String id, String password) throws Exception;
     public void updateUser(String password);
     public void deleteUser(String id);
 }

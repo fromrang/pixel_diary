@@ -33,6 +33,16 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    public User getUserIdPw(String id, String password) throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            return sqlSession.getMapper(UserMapper.class).selectUserIdPw(id, password);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Override
     public void updateUser(String password) {
 
     }
