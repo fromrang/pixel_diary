@@ -8,8 +8,9 @@ import {
 import './index.css';
 
 import App from './App';
-import Login from './pixel/login';
+import Login from './pixel/Login';
 import Join from './pixel/RegisterPage'
+import DiaryMain from './pixel/DiaryMain'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -17,9 +18,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<Login />} />
       <Route path="login" element={<Login />} /> 
       <Route path="join" element={<Join />} />
+      <Route path="main" element={<DiaryMain />} />
     </Routes>
   </BrowserRouter>
 );
