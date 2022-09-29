@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./LoginRegister.css"
 import axios from 'axios';
-import { useLocation, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 
 function Login(){
 
@@ -27,10 +27,10 @@ function Login(){
             return alert('비밀번호를 입력해주세요');
         }
 
-        var body= JSON.stringify({
+        var body= {
             id: id,
             password : password
-        });
+        };
 
         var config = {
             method: 'get',
@@ -38,11 +38,18 @@ function Login(){
             headers: { 
                 'Content-Type': 'application/json'
             },
-            data : body
+            params : body
         };
-        
+
+        // axios.get('http://localhost:7777/user', {
+        //     params : data
+        // })
+        // .then(function (response){
+        //     console.log(JSON.stringify(response.data));
+        // })
+
         axios(config).then(function (response) {
-            console.log(JSON.stringify(response.data));
+            //console.log(JSON.stringify(response.data));
             if (JSON.stringify(response.data['statusCode']) == 201){
                 return alert('존재하지 않는 회원이거나 비밀번호가 일치하지 않습니다.');
             }else if(JSON.stringify(response.data['statusCode']) == 200){
