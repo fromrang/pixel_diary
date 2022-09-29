@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.pixel_diary.dto.User;
 
+import java.util.Map;
+
 @RestController
 public class UserController {
 	@Autowired
@@ -36,13 +38,15 @@ public class UserController {
 	}
 	//로그인
 	@GetMapping("/user")
-	public ResponseEntity login(@RequestBody User user){
+	public ResponseEntity login(@RequestParam("id") String id, @RequestParam("password") String password){
 		try{
-			User existUser = userDao.getUserIdPw(user.getId(), user.getPassword());
+			//System.out.println(id + password);
+			User existUser = userDao.getUserIdPw(id, password);
 			if(existUser == null){
 				return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, "[Fail]not exist user"), HttpStatus.OK);
 			}else{
-				return new ResponseEntity(DefaultRes.res(StatusCode.OK, "[SUCCESS]login", existUser), HttpStatus.OK);
+				existUser.setPassword(null);
+				return new ResponseEntity(DefaultRes.res(StatusCode.OK, "[SUCCESS]login",existUser), HttpStatus.OK);
 			}
 		}catch (Exception e){
 			e.printStackTrace();
