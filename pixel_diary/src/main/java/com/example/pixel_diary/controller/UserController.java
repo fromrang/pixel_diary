@@ -38,10 +38,11 @@ public class UserController {
 	}
 	//로그인
 	@GetMapping("/user")
-	public ResponseEntity login(@RequestParam("id") String id, @RequestParam("password") String password){
+	//public ResponseEntity login(@RequestParam Map<String, String> params){
+	//public ResponseEntity login(@RequestParam String id){
+	public ResponseEntity login(User user){
 		try{
-			//System.out.println(id + password);
-			User existUser = userDao.getUserIdPw(id, password);
+			User existUser = userDao.getUserIdPw(user.getId(), user.getPassword());
 			if(existUser == null){
 				return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, "[Fail]not exist user"), HttpStatus.OK);
 			}else{
