@@ -8,9 +8,9 @@ import {
 import './index.css';
 
 import App from './App';
-import Login from './pixel/Login';
+import Login from './pixel/LoginPage';
 import Join from './pixel/RegisterPage'
-import DiaryMain from './pixel/DiaryMain'
+import DiaryMain from './pixel/MainPage'
 
 import reportWebVitals from './reportWebVitals';
 
