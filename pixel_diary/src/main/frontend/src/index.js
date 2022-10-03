@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 import Login from './pixel/LoginPage';
 import Join from './pixel/RegisterPage'
-import DiaryMain from './pixel/MainPage'
+import {MainPage} from './pixel/MainPage'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -21,7 +21,7 @@ root.render(
       <Route path="/" element={<Login />} />
       <Route path="login" element={<Login />} /> 
       <Route path="join" element={<Join />} />
-      <Route path="main" element={<DiaryMain />} />
+      <Route path="main" element={<MainPage />} />
     </Routes>
   </BrowserRouter>
 );
