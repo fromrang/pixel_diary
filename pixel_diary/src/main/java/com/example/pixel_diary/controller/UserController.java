@@ -1,5 +1,6 @@
 package com.example.pixel_diary.controller;
 
+import com.example.pixel_diary.dao.Program;
 import com.example.pixel_diary.dao.UserDao;
 import com.example.pixel_diary.dto.DefaultRes;
 import com.example.pixel_diary.dto.StatusCode;
@@ -16,6 +17,8 @@ import java.util.Map;
 public class UserController {
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	Program program;
 
 	// 회원가입
 	@PostMapping("/user")
@@ -55,6 +58,22 @@ public class UserController {
 
 		}
 	}
+	@PostMapping("/token")
+	public ResponseEntity loginToken(@RequestBody User user){
+		try{
+			User loginUser = userDao.getUserIdPw(user.getId(), user.getPassword());
+			if(loginUser == null){
+				return new ResponseEntity(DefaultRes.res(StatusCode.CREATED, "[Fail]not exist user"), HttpStatus.OK);
+			}else{
+				String token = program.createToekn(loginUser.getId());
+				//loginUser.setPassword(null);
+				return new ResponseEntity(DefaultRes.res(StatusCode.OK, "[SUCCESS]login",token), HttpStatus.OK);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+	}
 	//회원 수정
 	//@PutMapping("/user")
 
@@ -68,17 +87,14 @@ public class UserController {
 			@RequestParam(value = "msg2", required = false, defaultValue = "msg2Default")String msg2) {
 		Hello hello = new Hello(0, msg);
 		hello.setMsg(hello.getMsg() + ", " + msg2);
-
 		return hello;
 	}
-
 	@PostMapping()
 	public Hello post(@RequestBody Param param) {
 		String msg = "Data1 : " + param.getData1() + ", Data2 : " + param.getData2();
 		Hello hello = new Hello(0, msg);
 		return hello;
 	}
-
 	@PutMapping()
 	public Hello put(@RequestParam(value = "param1")String param1) {
 		Hello hello = new Hello(0, "Put Request : " + param1);
