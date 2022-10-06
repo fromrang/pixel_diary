@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import "./LoginRegister.css"
+import "./styles/LoginRegister.css"
 import axios from 'axios';
 import { json, useLocation, useNavigate } from "react-router-dom";
+import setAuthorizationToken from './utils/setAuthorizationToken';
 
 function LoginPage(){
 
@@ -32,29 +33,45 @@ function LoginPage(){
             password : password
         };
 
+        // [GET 방식]
+        // var config = {
+        //     method: 'get',
+        //     url: 'http://localhost:7777/user',
+        //     headers: { 
+        //         'Content-Type': 'application/json'
+        //     },
+        //     params : body
+        // };
+
+        // axios(config).then(function (response) {
+        //     //console.log(JSON.stringify(response.data));
+        //     if (JSON.stringify(response.data['statusCode']) == 201){
+        //         return alert('존재하지 않는 회원이거나 비밀번호가 일치하지 않습니다.');
+        //     }else if(JSON.stringify(response.data['statusCode']) == 200){
+        //     navigate('/main');
+        //     }
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
 
         var config = {
-            method: 'get',
-            url: 'http://localhost:7777/user',
+            method: 'post',
+            url: 'http://localhost:7777/token',
             headers: { 
                 'Content-Type': 'application/json'
             },
-            params : body
+            data : body
         };
-
-        // axios.get('http://localhost:7777/user', {
-        //     params : data
-        // })
-        // .then(function (response){
-        //     console.log(JSON.stringify(response.data));
-        // })
-
+        
         axios(config).then(function (response) {
-            //console.log(JSON.stringify(response.data));
             if (JSON.stringify(response.data['statusCode']) == 201){
                 return alert('존재하지 않는 회원이거나 비밀번호가 일치하지 않습니다.');
             }else if(JSON.stringify(response.data['statusCode']) == 200){
-            navigate('/main');
+                const token = response.data['data'];
+                localStorage.setItem('jwtToken', token);
+                setAuthorizationToken(token);
+                navigate('/main');
             }
         })
         .catch(function (error) {
