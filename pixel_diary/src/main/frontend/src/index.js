@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import './index.css';
+import setAuthorizationToken from './pixel/utils/setAuthorizationToken';
 
 import App from './App';
 import Login from './pixel/LoginPage';
@@ -13,6 +14,8 @@ import Join from './pixel/RegisterPage'
 import {MainPage} from './pixel/MainPage'
 
 import reportWebVitals from './reportWebVitals';
+
+setAuthorizationToken(localStorage.jwtToken);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
