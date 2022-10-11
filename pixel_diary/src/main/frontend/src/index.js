@@ -6,12 +6,13 @@ import {
   Route,
 } from "react-router-dom";
 import './index.css';
-import setAuthorizationToken from './pixel/utils/setAuthorizationToken';
 
+import setAuthorizationToken from './pixel/utils/setAuthorizationToken';
 import App from './App';
 import Login from './pixel/LoginPage';
 import Join from './pixel/RegisterPage'
 import {MainPage} from './pixel/MainPage'
+import RequireAuth from './pixel/utils/RequireAuth';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -20,12 +21,18 @@ setAuthorizationToken(localStorage.jwtToken);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Routes>
+      <Routes>
       <Route path="/" element={<Login />} />
       <Route path="login" element={<Login />} /> 
       <Route path="join" element={<Join />} />
-      <Route path="main" element={<MainPage />} />
-    </Routes>
+      {/* <Route path="main" element={<MainPage />} /> */}
+      <Route path="main" element={
+          <RequireAuth>
+            <MainPage/>
+          </RequireAuth>
+        } 
+      />
+      </Routes>
   </BrowserRouter>
 );
 
