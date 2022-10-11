@@ -114,17 +114,26 @@ export const MainPage = () => {
     };
     return (
         <div className="calendar">
+            
+
             <RenderHeader
                 currentMonth={currentMonth}
                 prevMonth={prevMonth}
                 nextMonth={nextMonth}
             />
             <RenderDays />
+            <div className="col col-end1">
+                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
+            </div>
             <RenderCells
                 currentMonth={currentMonth}
                 selectedDate={selectedDate}
                 onDateClick={onDateClick}
             />
+            
+            <div className="col col-end2">
+                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
+            </div> 
         </div>
     );
 };
